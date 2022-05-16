@@ -36,15 +36,12 @@ const resultado = document.querySelector("#resultado");
             var mult = 0
 
             for (let i in equivalencias){
-                if(i == temp){
-                    
+                if(i == temp){                  
                     mult = cantidad * equivalencias[i];
                     break;
                 }
             }
-
-            resultado.value = mult;
-            
+            resultado.value = mult;      
         }
 
     });

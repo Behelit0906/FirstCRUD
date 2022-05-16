@@ -4,22 +4,6 @@
 
 @section('content')
 
-    @if (Session::has('success-message'))
-        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-            {{Session::get('success-message')}}  
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div> 
-
-    @elseif (Session::has('error-message'))
-        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-            {{Session::get('error-message')}}  
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>  
-    @endif
 
     <div class="container mt-5">
         <a href="{{route('producto.create')}}" class="btn btn-dark mb-2">Registrar producto</a>

@@ -9,6 +9,14 @@ class Producto extends Model
 {
 
     protected $table = 'tabla01';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['id', 'nombre', 'marca', 'precio', 'cantidad'];
+
     use HasFactory;
     
 

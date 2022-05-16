@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use PDOException;
 use PDO;
 Use Illuminate\Support\Env;
+use PhpParser\Node\Stmt\Return_;
 
 class Admin extends Model
 {
@@ -21,16 +22,15 @@ class Admin extends Model
             $this->dns = 'mysql:host='.Env::get('DB_HOST');
             $this->username = Env::get('DB_USERNAME');
             $this->password = Env::get('DB_PASSWORD');
-            $this->db = new PDO($this->dns,$this->username,$this->password);
         }
 
         public function createDataBase(){
             try {
+                $this->db = new PDO($this->dns,$this->username,$this->password);
                 $query = $this->db->query('CREATE DATABASE bdunad01');
                 return $query;
             } 
             catch (PDOException $e) {
-                error_log($e->getMessage());
                 return $e->getCode();
             }
 
@@ -38,6 +38,7 @@ class Admin extends Model
 
         public function createTable(){
             try {
+                $this->db = new PDO($this->dns,$this->username,$this->password);
                 $query = $this->db->query('USE bdunad01');
                 if($query){
                     $query = $this->db->query('CREATE TABLE tabla01 (
@@ -50,10 +51,10 @@ class Admin extends Model
                         updated_at TIMESTAMP 
                         )
                     ');
-                    return $query;
+                    return $query ? true : false;
                 }
 
-                return '3';
+                return '1049';
                 
             } 
             catch (PDOException $e) {

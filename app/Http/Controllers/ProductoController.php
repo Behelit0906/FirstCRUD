@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Artisan;
 
 class ProductoController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -36,6 +38,33 @@ class ProductoController extends Controller
         return view('inventario.create');
     }
 
+
+    private function validacionesExtras($codigo): string{
+        switch ($codigo){
+            case '2002':
+                $message = 'Encienda su servidor MySQL';
+                break;
+            
+            case '23000':
+                $message = "Ya hay registrado un producto con ese código";
+                break;
+
+            case '42S02':
+                $message = "La tabla aún no ha sido creada";
+                break;
+            
+            case '1049':
+                $message = 'La base de datos aún no ha sido creada';
+                break;
+
+            default:
+                $message = 'Error desconocido, intente más tarde';
+                break;
+        }
+
+        return $message;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -53,19 +82,21 @@ class ProductoController extends Controller
         ]);
 
         try{
-            $producto = new Producto();
-        $producto->id = $request->id;
-        $producto->nombre = $request->nombre;
-        $producto->marca = $request->marca;
-        $producto->precio = $request->precio;
-        $producto->cantidad = $request->cantidad;
+            // $producto = new Producto();
+            // $producto->id = $request->id;
+            // $producto->nombre = $request->nombre;
+            // $producto->marca = $request->marca;
+            // $producto->precio = $request->precio;
+            // $producto->cantidad = $request->cantidad;
+            // $producto->save();
 
-        $producto->save();
+            $producto = Producto::create($request->except('_token'));
 
-        return redirect()->route('index')->with(['success-message' => 'Producto registrado']);
+            return redirect()->route('index')->with(['success-message' => 'Producto registrado']);
         }
-        catch(\Exception $e){
-            return redirect()->route('index')->with(['error-message' => 'Asegurese antes de tener creada la base de datos y la tabla']);
+        catch(\Exception $e){          
+            $message = $this->validacionesExtras($e->getCode());   
+            return redirect()->back()->with(['error-message' => $message]);
         }
     }
 
@@ -107,13 +138,7 @@ class ProductoController extends Controller
             'cantidad' => 'required|numeric'
         ]);
 
-        $producto->nombre = $request->nombre;
-        $producto->marca = $request->marca;
-        $producto->precio = $request->precio;
-        $producto->cantidad = $request->cantidad;
-
-        $producto->save();
-
+        $producto->update($request->except('_token'));
         return redirect()->route('index')->with(['success-message' => 'Producto actualizado']);
     }
 

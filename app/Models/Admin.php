@@ -28,10 +28,10 @@ class Admin extends Model
             try {
                 $this->db = new PDO($this->dns,$this->username,$this->password);
                 $query = $this->db->query('CREATE DATABASE bdunad01');
-                return $query;
+                return $query ? '1' : '0';
             } 
             catch (PDOException $e) {
-                return $e->getCode();
+                return strval($e->getCode());
             }
 
         }
@@ -51,14 +51,14 @@ class Admin extends Model
                         updated_at TIMESTAMP 
                         )
                     ');
-                    return $query ? true : false;
+                    return $query ? '1' : '0';
                 }
 
                 return '1049';
                 
             } 
             catch (PDOException $e) {
-                return $e->getCode();
+                return strval($e->getCode());
             }
         }
 

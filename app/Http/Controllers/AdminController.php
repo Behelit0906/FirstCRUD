@@ -26,11 +26,11 @@ class AdminController extends Controller
         
         switch($query){
 
-            case true:
+            case '1':
                 $mensaje = ['success-message' => 'Base de datos creada'];
                 break; 
 
-            case false:
+            case '0':
                 $mensaje = ['error-message' => 'La base de datos ya fue creada'];
                 break;
 
@@ -52,11 +52,11 @@ class AdminController extends Controller
 
         switch($query){
 
-            case true:
+            case '1':
                 $mensaje = ['success-message' => 'Tabla creada correctamente'];
                 break;  
 
-            case false:
+            case '0':
                 $mensaje = ['error-message' => 'La tabla ya fue creada'];
                 break;
             

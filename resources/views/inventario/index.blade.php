@@ -28,8 +28,8 @@
                         <td>{{'$'.number_format($producto->precio); }}</td>
                         <td>{{$producto->cantidad}}</td>
                         <td>
-                        <a href="{{route('edit',$producto->id)}}" class="btn btn-warning">Editar</a>
-                            <form action="{{route('producto.delete',$producto->id)}}" method="post" class="d-inline">
+                        <a href="{{route('edit',$producto)}}" class="btn btn-warning">Editar</a>
+                            <form action="{{route('producto.delete',$producto)}}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
                                 <input type="submit" onclick="return confirm('¿Deseas realmente borrar el registro?')" value="Borrar" class="btn btn-danger">

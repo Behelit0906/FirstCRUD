@@ -6,6 +6,7 @@ use App\Models\Producto;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 
 class ProductoController extends Controller
 {
@@ -90,7 +91,9 @@ class ProductoController extends Controller
             // $producto->cantidad = $request->cantidad;
             // $producto->save();
 
-            $producto = Producto::create($request->except('_token'));
+            $request->merge(['slug' => Str::slug($request->input('nombre'),'-')]);
+
+            Producto::create($request->all());
 
             return redirect()->route('index')->with(['success-message' => 'Producto registrado']);
         }
@@ -138,7 +141,9 @@ class ProductoController extends Controller
             'cantidad' => 'required|numeric'
         ]);
 
-        $producto->update($request->except('_token'));
+        $request->merge(['slug' => Str::slug($request->input('nombre'),'-')]);
+
+        $producto->update($request->all());
         return redirect()->route('index')->with(['success-message' => 'Producto actualizado']);
     }
 

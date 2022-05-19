@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mt-4">
-        <form action="{{route('producto.update',$producto->id)}}" method="post">
+        <form action="{{route('producto.update',$producto)}}" method="post">
             @csrf
             @method('put')
             

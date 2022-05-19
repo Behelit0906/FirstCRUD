@@ -44,6 +44,7 @@ class Admin extends Model
                     $query = $this->db->query('CREATE TABLE tabla01 (
                         id VARCHAR(30) PRIMARY KEY,
                         nombre VARCHAR(60) NOT NULL,
+                        slug VARCHAR(45) NOT NULL UNIQUE,
                         marca VARCHAR(30) NOT NULL,
                         precio DECIMAL NOT NULL,
                         cantidad INT NOT NULL,

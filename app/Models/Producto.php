@@ -15,10 +15,15 @@ class Producto extends Model
      *
      * @var array
      */
-    protected $fillable = ['id', 'nombre', 'marca', 'precio', 'cantidad'];
+    protected $fillable = ['id', 'nombre', 'marca', 'precio', 'cantidad','slug'];
 
     use HasFactory;
     
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function setIdAttribute($value){
         $this->attributes['id'] = strtoupper($value);
